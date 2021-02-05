@@ -1,9 +1,74 @@
+# 京东商品页面
 import requests
 
 
 url = "https://item.jd.com/100004770249.html"
 try:
     r = requests.get(url)
+    r.raise_for_status()
+    r.encoding = r.apparent_encoding
+    print(r.text[:1000])
+except:
+    print("爬取失败")
+
+
+# 亚马逊商品页面
+import requests
+
+
+url = "https://www.amazon.cn/dp/B01MYH8A99"
+try:
+    kv = {'user‐agent':'Mozilla/5.0'} # 标准的浏览器身份标识
+    r = requests.get(url,headers=kv) # 模拟浏览器访问
+    r.raise_for_status()
+    r.encoding = r.apparent_encoding # r.request.headers 查看报头信息
+    print(r.text[1000:2000])
+except:
+    print("爬取失败")
+
+
+# 百度 360搜索关键字提交-----接口：http://www.baidu.com/s?wd=keyword    http://www.so.com/s?q=keyword
+import requests
+keyword = "Python"
+try:
+    kv = {'wd':keyword}
+    r = requests.get("http://www.baidu.com/s",params=kv)
+    print(r.request.url)
+    r.raise_for_status()
+    print(len(r.text))
+except:
+    print("爬取失败")
+    
+    
+# 图片
+import requests
+import os
+
+
+url = "http://img0.dili360.com/ga/M00/48/F7/wKgBy1llvmCAAQOVADC36j6n9bw622.tub.jpg"
+root = "E://图片//爬虫//"
+path = root + url.split('/')[‐1]
+try:
+    if not os.path.exists(root):
+    os.mkdir(root)
+    if not os.path.exists(path):
+    r = requests.get(url)
+    r.raise_for_status()
+    with open(path, 'wb') as f:
+    f.write(r.content) # r.content表示返回内容的二进制形式，
+    f.close() # 图片是以二进制形式存储的
+    print("文件保存成功")
+else:
+    print("文件已存在")
+except:
+    print("爬取失败")
+    
+    
+# Ip地址归属地自动查询-----ip138 IP查询：http://m.ip138.com/ip.asp?ip=ipaddress
+import requests
+url = "http://m.ip138.com/ip.asp?ip="
+try:
+    r = requests.get(url + '202.204.80.112')
     r.raise_for_status()
     r.encoding = r.apparent_encoding
     print(r.text[:1000])

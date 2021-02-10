@@ -31,6 +31,17 @@ requests.patch(url, data=None, **kwargs)
 #           删除
 requests.delete(url, **kwargs)
 
+
+'''
+异常：
+.ConnectionError   网路连接错误异常，如DNS查询失败、拒绝连接等
+.HTTPError     HTTP错误异常
+.URLRquired    URL缺失异常
+.TooManyRedirects    超过最大重定向次数
+.ConnectTimeout    连接远程服务器超时异常
+.Timeout      请求URL超时
+r.raise_for_status()   不是200时产生requests.HTTPError
+'''
 # 通用框架
 import requests
 
@@ -46,3 +57,73 @@ def getHTMLText(url):
 if __name__ == "__main__":
 url = "http://www.baidu.com"
 print(getHTMLText(url))
+
+
+
+# -------------beautifulsoup库
+'''
+beautifulsoup 对应一个HTML/XML文档的全部内容。
+库解析器：
+bs4----HTML解析器   BeautifulSoup(mk, 'html.parser')
+lxml-----HTML                    (mk, 'lxml')
+lxml----XML                      (mk, 'xml')
+html5lib----                     (mk, 'html5lib')
+
+类基本元素：
+Tag---标签，最基本的信息组织单元，用<> </>标明开头和结尾
+Name---标签名。<p>....</p>的名字是'p'，格式：<tag>.name
+Attributes---标签的属性，字典形式，格式：<tag>.attrs
+NavigableString---标签内非属性字符串，<>...</>中字符串，格式：<tag>.string
+Comment---标签字符串的注释部分，一种特殊的Comment类型
+
+
+HTML遍历方法：
+标签树的下行遍历：
+.contents----子节点的列表，将<tag>所有子节点存入列表
+.children----子节点迭代类型，与contents类似
+.descendants---子孙节点的迭代类型，包含所有子孙节点，用于循环遍历
+for child in soup.body.children:
+    print(child)   # 遍历子节点
+for child in soup.body.descendants:
+    print(child)  # 遍历子孙节点
+    
+标签树的上行遍历：
+.parent---节点的父标签
+.parents--节点先辈标签的迭代类型，循环遍历先辈节点
+soup = BeautifulSoup(demom, "html.parser")
+for parent in soup.a.parents:   # 遍历soup的a标签的先辈标签
+    if parent is None:
+        print(parent)
+    else:
+        print(parent.name)
+        
+标签树的平行遍历：
+.next_sibling---返回HTML文本顺序的下一个平行节点标签
+.previous_sibling---返回按照HTML文本顺序的上一个平行节点标签
+.next_siblings---迭代类型
+.previous_siblings---迭代类型
+for sibling in soup.a.next_siblings:  # 遍历后续节点
+    print(sibling)
+for siblingin soup.a.previous_siblings:  # 遍历前序节点
+    print(sibling)
+'''
+
+'''
+信息标记的三种形式：XML， JSON， YAML
+XML                     JSON                                  YMAL
+<name>...</name>    "key": "value"                         key: value key: #Comment
+<name />            "key": ["value1", "value2"]            key: ‐value1
+<!‐‐ ‐‐>             "key": {"subkey", "subvalue"}         subkey: subvalue ‐value2
+
+'''
+
+
+
+
+
+
+
+
+
+
+

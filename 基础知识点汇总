@@ -1,0 +1,238 @@
+1.分别使用for while循环实现九九乘法表：
+for i in range(1, 10):
+    for j in range(1, i + 1):
+        print("%d*%d=%d" % (i, j, i*j), end="\t")
+    print("")
+# 在IDLE交互式解释器上运行时，i = 1赋值和 while语句要分开复制过去。
+# 不然会有multiple statements found while compiling a single statement错误。
+i = 1
+while i < 10:
+    j = 1
+    while j <= i:
+        print("%d*%d=%d" % (i, j, i*j), end="\t")
+        j += 1
+    print("")
+    i += 1
+
+2.字符串string
+'' or ""创建 eg：str = '字符串1-hello'  str2 = "字符串2-world"
+访问：print(str)   print(str[0])   print(str[0:3])   print(str[1:7:2])   print(str[:5])    print(str[5:])
+连接：print(str + "你好")    print(str * 5)   # 连接用+，连续重复用*
+字符串转义符：\(在行尾时)----换行；   \'和\"----单、双引号；    \n----换行；    \t----横向制表符
+字符串运算符：+--字符串连接；    *--重复输出字符串；   []--通过索引获取串中字符；   [ : ]--截取串的一部分；
+             in--成员运算符，串中包含给定字符则返回True；   not in----串中不包含给定字符则返回True
+格式化字符串：%s  %d  %c   分辨表示格式化字符串、整数、字符及ASCII码    函数：str.format()
+内建函数：
+string.count(str, beg=0, end=len(string))----返回str在string出现的次数，beg和end指定范围
+string.endswith(obj, beg=0, end=len(string))----检查串是否以obj结束，是返回True，否返回False
+string.decode(encoding="utf-8", errr="strict")----以encoding指定的编码格式解码string，出错则默认报ValueError的异常除非error指定为ignore或replace
+string.encode(encoding="utf-8", error="strict")----以encoding指定的编码格式编码string，出错则默认报ValueError的异常
+string.find(str, beg=0, end=len(string))----检测str是否在string中，beg end指定范围，在范围中则返回开始的索引值，否则返回-1
+string.format()----格式化字符串
+string.index(str, beg=0, end=len(string))----类find方法，若str不在string中会报异常
+str.join(seq)----以string为分隔符，将seq中所有元素的字符串表示合并为一个新的字符串
+string.replace(str1, str2, num=string.count(str1))----把string中的str1替换为str2，指定不超过num次
+string.split(str="", num=string.count(str))----以str为分隔符切片string，指定num则分割num+个子串
+string.strip([obj])----删除字符串前后空格
+
+3.列表list[]
+建：list = []     list = ["Name", 18, {"age": 18}] # 列表中允许多种类型
+访问：list1 = ["小张","小王","小李"]  #for循环遍历获取列表数据
+      for list in list1:
+          print(list)
+      list1 = ["小张","小王","小李"]  #while循环遍历获取列表数据
+      length = len(list1)
+      i = 0
+      while i<length:
+          print(list1[i])
+          i += 1
+增（append, extend, insert）：
+    list = ["张三", "李四", "王五"]
+    addname = input("请输入要添加的路人名：")
+    list.append(addname)     # append追加到末尾
+    a = [12, 34]
+    b = [1, 2]
+    a.append(b)     # 将列表当做一个元素加入到列表中
+    a.extend(b)     # 将列表中每一个元素逐一追加到a中
+删（del, pop, remove）：
+    list = ["张三", "李四", "王五"]
+    del list[1]      # 在指定位置删除一个元素（李四 被删除了）
+    list.pop()       # pop弹出末尾最后一个元素
+    list.remove("张三")       # remove直接删除指定内容的元素，含重复则只删除首个
+改：list = ["张三", "李四", "王五"]
+    list[1] = "天降路人"
+    for ls in list:
+        print(ls)
+查（in/not in):
+    list = ["张三", "李四", "王五"]
+    findname = input("请输入你要查找的姓名")
+    if findname in list:
+        print("在名单中找到了你查找的姓名")
+    else:
+        print("没有找到")
+    list = ["a","b","c","a","b"]
+    print(list.index("a",1,4))      #可以查找指定下标范围的元素，并返回找到对应数据的下标
+    print(list.index("a",1,3))      #因为范围区间左闭右开【1，3），找不到会报错
+    list = ["a","b","c","a","b"]
+    print(list.count("a"))          #统计元素出现的次数  
+其余（常用&重要）：
+    排序&反转（sort\reverse）：a = [a, b, c, d]     print(a)
+                               a.reverse()        print(a)      # 将所有元素反转
+                               a.sort()           print(a)      # 升序
+                               a.sort(reverse=True)      print(a)      # 降序
+                        嵌套：info = [["张三", "李四", "王五"], ["清华", "北大", "华科"]]
+                              print(info[0])
+                              print(info[0][2])
+    枚举（enumerate,同时拿到列表下标和元素内容）：list = [1, 2, 5, 8, 0]
+                                                 for i, x in enumerate(list)
+                                                    print(i + 1, x)
+    将8人中的任意三个人随机分配到3个办公室:import random
+                                          offices = [[],[],[]]
+                                          names = ["A","B","C","D","E","F","G","H"]
+                                          for name in names:
+                                              index = random.randint(0,2)  #注意这是左闭右闭
+                                              offices[index].append(name)
+                                          i = 1
+                                          for office in offices:
+                                              print("办公室%d的人数为：%d"%(i,len(office)))
+                                              i +=1
+                                              for name in office:
+                                                  print("%s"%name,end="\t")
+                                                  print("\n")
+                                                  print("-"*28)
+
+4.元组tuple() 类似list但元素不可修改，用中括号[].
+增（连接）：tup1 = (12, 23, 34)    tup2 = (ab, bc, cd)    tup = tup1 + tup2    print(tup)
+
+5.字典dict{}  key: value对的形式，每一对由，分开。花括号
+建：info = {"name": "PhilSongZi", "age": 18}
+访问：print(info["name"])    print(info["age"])    print(info["gender"])# 不存在的值访问报错    
+      print(info.get("gender")) # get方法没找到对应值默认返回None    print(info.get("gender", "m")) # 没找到对应值 返回m
+增：info = {"name": "PhilSongZi", "age": 18}
+    newId = input("请输入你新的ID：")
+    info["id"] = newId
+    print(info["id"])           print(info)
+删：info = {"name": "PhilSongZi", "age": 18}
+    print("删除前：%s"%info["name"])
+    del info["name"] #删除了键值对
+    print("删除后：%s"%info["name"]) #删除了指定键值对后，再次访问会报错
+    # del删除    clear清空
+改：info = {"name": "PhilSongZi", "age": 18}
+    info["name"] = "aConga"
+    print(info["name"])
+查：info = {"name": "PhilSongZi", "age": 18, "id": 10086}
+    print(info.keys())    #得到所有的键（列表）
+    print(info.values())  #得到所有的值（列表）
+    print(info.items())   #得到所有的项（列表），每个键值对是一个元组
+遍历键、值、键值对：
+    info = {"name": "PhilSongZi", "age": 18, "id": 10086}
+    for key in info.keys():
+        print(key)
+    for value in info.values():
+        print(value) 
+    for key,value in info.items():
+        print("key=%s,value=%s"%(key,value))
+
+6.集合
+x = set([1,2,3])   #set类似dict，但仅是key的集合，不存储value
+print(x)
+y = set([1,1,2,2,3,3])   #set中重复元素会被过滤
+print(y)
+
+
+7.函数
+自定义函数：def funName(参数1, 参数2, .....):
+                自定义的函数功能代码块
+                return 返回的内容
+       举例：def divide(a, b):
+                shang = a // b
+                yushu = a % b
+                return shang, yushu
+             sh, yu = divide(7, 2)
+             print("商：%d，余数：%d" % (sh, yu))
+
+lambda函数（可写函数说明）：
+sum = lambda arg1, arg2: arg1 + arg2
+print("相加后的值为：", sum(10, 20))
+
+全局变量&局部变量：
+######################
+    def te1():
+        a = 300    #局部变量
+        print("te1--------修改前：a = %d"%a)
+        a = 100
+        print("te1--------修改后：a = %d"%a)
+    def te2():
+        a = 500   #不同的函数可以定义相同的名字，彼此无关
+        print("te2--------：a = %d"%a)
+    te1()
+    te2()
+#########################
+    a = 100    #全局变量
+    def te1():
+        print(a)
+    def te2():
+        print(a)
+    te1()
+    te2()
+#########################
+    a = 100
+    def te1():
+        a = 300    #局部变量优先使用
+        print("te1--------修改前：a = %d"%a)
+        a = 200
+        print("te1--------修改后：a = %d"%a)
+    def te2():
+        print("te2--------：a = %d"%a) #没有局部变量，默认使用全局变量
+    te1()
+    te2()
+############################
+    a = 100
+    def te1():
+        global a   #声明全局变量在函数中的标识符
+        print("te1--------修改前：a = %d"%a)
+        a = 200
+        print("te1--------修改后：a = %d"%a)
+    def te2():
+        print("te2--------：a = %d"%a) #没有局部变量，默认使用全局变量
+    te1()
+    te2()
+############################
+
+8.文件IO
+打开/新建：f = open("文档1.txt", "r")     # 参数：r---只读方式（默认）；w---写模式，文件已存在内容则会覆盖
+           f.close()    # 关闭文件               rb---二进制方式打开用于只读；wb---二进制方式打开用于只写
+写（write方法）：f = open("test.txt","w")  #打开文件test.txt
+                 f.write("hello world")   #将字符串写入文件中
+                 f.close() #关闭文件
+读（read方法）：f = open("test.txt","r")
+                content = f.read(5) #首次默认读前5个字符
+                print(content)
+                content = f.read(10)  #往后读10个字符
+                print(content)
+                f.close()
+                
+                f = open("test.txt","r")
+                content = f.readlines()  #一次性读取全部文件的列表，每行一个字符串元素
+                #print(content)
+                i = 1
+                for temp in content:
+                    print("%d:%s"%(i,temp))
+                    i += 1
+                f.close()
+               
+                f = open("test.txt","r")
+                content = f.readline()  #读一行
+                print("1：%s"%content,end="")  #end=""为不空行
+                content = f.readline()  #读第二行
+                print("2：%s"%content)
+os模块进行文件操作：在线文档---https://docs.python.org/zh-cn/3.6/library/os.html                
+
+9.异常处理
+
+
+10.
+
+
+
+

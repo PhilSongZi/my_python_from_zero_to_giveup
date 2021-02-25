@@ -228,10 +228,59 @@ print("相加后的值为：", sum(10, 20))
                 print("2：%s"%content)
 os模块进行文件操作：在线文档---https://docs.python.org/zh-cn/3.6/library/os.html                
 
-9.异常处理
+9.异常处理。
+异常应该从Exception类中派生。异常捕获时总是把Exception类对应的except块放在最后，父类异常的except块也都放在子类异常except块的后面（先处理小异常，再处理大异常的原则）。
+try:防止可能引发异常的代码块。
+except:异常类型和代码块，表示该except块是处理这种异常类型的。
+else:表示不出现异常时还要执行else块。
+finally:回收在try块中打开的物理资源，finally块总会被执行。
+raise:引发一个实际的异常。
+异常捕获（例）：import sys
+               try:
+                    a = int(sys.argv[1])
+                    b = int(sys.argv[2])
+                    c = a / b
+                    print("您输入的两个数相除结果是：", c)
+                except (IndexError, ValueError, ArithmeticError):        # 构建了多异常组成的元组
+                    print("程序发生了数组越界、数字格式异常、算术异常之一")
+                except:
+                    print("未知异常")             # 省略异常类的except语句，表示可捕获所有类型的异常，一般作为异常捕获的最后一个except块。
+                else:
+                    print("未出现异常")           # 放在else块中的代码所引发的异常不会被except块捕获，故若希望某段代码的异常能向外传播（不被捕获），就将其放在else块中
+访问异常信息：def foo():
+                 try:
+                     fis = open("a.txt")
+                 except Exception as e:
+                     print(e.args)       # 异常的错误编号和详细信息
+                     print(e.errno)      # 异常的错误编号
+                     print(e.strerror)   # 异常的详细信息
+                     # 另外，with_traceback()方法可以处理异常的传播轨迹信息
+             foo()
+自定义异常类：class AuctionException(Exception): pass      # 继承Exception基类或其子类。该自定义异常类不需要类体定义，所以用pass占位即可。
+异常传播轨迹：
+            # traceback_exc() 将异常传播轨迹信息输出到控制台或指定文件
+            # format_exc() 将异常传播轨迹信息转换成字符串
+            import traceback
+            class SelfException(Exception): pass
+            def main():
+                firstMethod()
+            def firstMethod():
+                secondMethod()
+            def secondMethod():
+                thirdMethod():
+            def thirdMethod():
+                raise SelfException("自定义异常信息")
+            try:
+                main()
+            except:
+                traceback.print_exc()                # 捕获异常，并将异常信息传播信息输出到控制台
+                traceback.print_exc(file = open("log.txt", "a"))        # 捕获异常，并将异常信息传播信息输出到指定文件
+注意事项：try块不要过大，把它分解成多个可能的异常引发代码块，分别捕获并处理异常。
+          捕获到异常后：处理异常--修复&绕过异常继续运行；提示重新操作；用替代的方法完成这一层的任务等等
+                        重新引发异常--异常转译，包装成当前层的异常，传给上层调用者
+                        在合适的层处理异常--
 
-
-10.
+10.线程
 
 
 

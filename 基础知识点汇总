@@ -36,6 +36,21 @@ string.split(str="", num=string.count(str))----以str为分隔符切片string，
 string.strip([obj])----删除字符串前后空格
 
 3.列表list[]
+
+列表推导式：nums = [0, 1, 2, 3, 4]
+            squares = []
+            for x in nums:
+                squares.append(x ** 2)
+            print(squares)   # Prints [0, 1, 4, 9, 16]
+            # 使用列表推导式
+            nums = [0, 1, 2, 3, 4]
+            squares = [x ** 2 for x in nums]
+            print(squares)   # Prints [0, 1, 4, 9, 16]
+            # 使用加条件的列表推导式
+            nums = [0, 1, 2, 3, 4]
+            even_squares = [x ** 2 for x in nums if x % 2 == 0]
+            print(even_squares)  # Prints "[0, 4, 16]"
+
 建：list = []     list = ["Name", 18, {"age": 18}] # 列表中允许多种类型
 访问：list1 = ["小张","小王","小李"]  #for循环遍历获取列表数据
       for list in list1:
@@ -102,6 +117,7 @@ string.strip([obj])----删除字符串前后空格
                                                   print("-"*28)
 
 4.元组tuple() 类似list但元素不可修改，用中括号[].
+           ####元组可以用作字典中的键和集合的元素，列表不能。
 增（连接）：tup1 = (12, 23, 34)    tup2 = (ab, bc, cd)    tup = tup1 + tup2    print(tup)
 
 5.字典dict{}  key: value对的形式，每一对由，分开。花括号
@@ -133,7 +149,11 @@ string.strip([obj])----删除字符串前后空格
     for key,value in info.items():
         print("key=%s,value=%s"%(key,value))
 
-6.集合
+字典推导式（类似列表推导式）：nums = [0, 1, 2, 3, 4]
+                             even_num_to_square = {x: x ** 2 for x in nums if x % 2 == 0}
+                             print(even_num_to_square)   # Prints "{0: 0, 2: 4, 4: 16}"
+
+6.集合（不同元素的无序集合）
 x = set([1,2,3])   #set类似dict，但仅是key的集合，不存储value
 print(x)
 y = set([1,1,2,2,3,3])   #set中重复元素会被过滤
